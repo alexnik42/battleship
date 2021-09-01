@@ -1,7 +1,7 @@
 #ifndef B_HEADER_HEAD
 #define B_HEADER_HEAD
 
-#define MAP_SIZE 10
+#define BATTLEFIELD_SIZE 10
 
 #define CARRIER_S 5
 #define BATTLESHIP_S 4
@@ -29,6 +29,7 @@
 #define WHT "\x1B[37m"
 #define RESET "\x1B[0m"
 
+#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -46,7 +47,7 @@ typedef struct s_ships
 
 typedef struct s_map
 {
-	char **map;
+	char **battlefield;
 	int height;
 	int width;
 	t_ships *ships;
@@ -78,7 +79,24 @@ void print_game_maps(t_map *user_map, t_map *game_map);
 t_map *allocate_memory(t_map *map);
 t_map *initialize_empty_map(t_map *map);
 
+// start_game.c
+void new_game();
+
 // simulate_game.c
 void simulate_game(t_game *game);
+
+// computer_moves.c
+void next_computer_move(int *row, int *col, int last_hit_row, int last_hit_col, t_game *game);
+
+// free_memory.c
+void free_battlefield(char **battlefield, int size);
+void free_ships(t_ships *ships);
+void free_map(t_map *map);
+void free_game_map(t_map *map);
+void free_game(t_game *game);
+void free_all_memory(t_game *game);
+
+// handle_errors.c
+void handle_errors(void);
 
 #endif

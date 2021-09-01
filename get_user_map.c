@@ -12,7 +12,7 @@ void fill_user_map(t_map *user_map)
 		printf("\nChoose position for CARRIER: ");
 		scanf("%s", pos);
 		printf("\n");
-		user_map->map[pos[1] - 48][pos[0] - 97] = SHIP;
+		user_map->battlefield[pos[1] - 48][pos[0] - 97] = SHIP;
 		printf("\e[1;1H\e[2J");
 		print_single_map(user_map);
 		i++;
@@ -24,7 +24,7 @@ void fill_user_map(t_map *user_map)
 		printf("\nChoose position for BATTLESHIP: ");
 		scanf("%s", pos);
 		printf("\n");
-		user_map->map[pos[1] - 48][pos[0] - 97] = SHIP;
+		user_map->battlefield[pos[1] - 48][pos[0] - 97] = SHIP;
 		printf("\e[1;1H\e[2J");
 		print_single_map(user_map);
 		i++;
@@ -36,7 +36,7 @@ void fill_user_map(t_map *user_map)
 		printf("\nChoose position for DESTROYER: ");
 		scanf("%s", pos);
 		printf("\n");
-		user_map->map[pos[1] - 48][pos[0] - 97] = SHIP;
+		user_map->battlefield[pos[1] - 48][pos[0] - 97] = SHIP;
 		printf("\e[1;1H\e[2J");
 		print_single_map(user_map);
 		i++;
@@ -48,7 +48,7 @@ void fill_user_map(t_map *user_map)
 		printf("\nChoose position for SUBMARINE: ");
 		scanf("%s", pos);
 		printf("\n");
-		user_map->map[pos[1] - 48][pos[0] - 97] = SHIP;
+		user_map->battlefield[pos[1] - 48][pos[0] - 97] = SHIP;
 		printf("\e[1;1H\e[2J");
 		print_single_map(user_map);
 		i++;
@@ -60,7 +60,7 @@ void fill_user_map(t_map *user_map)
 		printf("\nChoose position for PATROL BOAT: ");
 		scanf("%s", pos);
 		printf("\n");
-		user_map->map[pos[1] - 48][pos[0] - 97] = SHIP;
+		user_map->battlefield[pos[1] - 48][pos[0] - 97] = SHIP;
 		printf("\e[1;1H\e[2J");
 		print_single_map(user_map);
 		i++;
@@ -73,10 +73,10 @@ t_map *get_user_map()
 
 	user_map = malloc(sizeof(t_map));
 	if (user_map == NULL || errno)
-		exit(0);
+		return (NULL);
 	user_map = allocate_memory(user_map);
 	if (user_map == NULL)
-		exit(0);
+		return (NULL);
 	user_map = initialize_empty_map(user_map);
 	fill_user_map(user_map);
 	return (user_map);
@@ -84,14 +84,14 @@ t_map *get_user_map()
 
 t_map *get_user_game_map()
 {
-	t_map *game_map;
+	t_map *user_game_map;
 
-	game_map = malloc(sizeof(t_map));
-	if (game_map == NULL || errno)
-		exit(0);
-	game_map = allocate_memory(game_map);
-	if (game_map == NULL)
-		exit(0);
-	game_map = initialize_empty_map(game_map);
-	return (game_map);
+	user_game_map = malloc(sizeof(t_map));
+	if (user_game_map == NULL || errno)
+		return (NULL);
+	user_game_map = allocate_memory(user_game_map);
+	if (user_game_map == NULL)
+		return (NULL);
+	user_game_map = initialize_empty_map(user_game_map);
+	return (user_game_map);
 }

@@ -4,22 +4,33 @@ t_map *allocate_memory(t_map *map)
 {
 	int i;
 
-	map->height = MAP_SIZE;
-	map->width = MAP_SIZE;
-	map->map = malloc(sizeof(char *) * map->height);
-	if (map->map == NULL || errno)
+	map->height = BATTLEFIELD_SIZE;
+	map->width = BATTLEFIELD_SIZE;
+	map->battlefield = malloc(sizeof(char *) * map->height);
+	if (map->battlefield == NULL || errno)
+	{
+		free_map(map);
 		return (NULL);
+	}
 	i = 0;
 	while (i < map->height)
 	{
-		map->map[i] = malloc(sizeof(char) * (map->width + 1));
-		if (map->map[i] == NULL)
+		map->battlefield[i] = malloc(sizeof(char) * (map->width + 1));
+		if (map->battlefield[i] == NULL)
+		{
+			free_battlefield(map->battlefield, i);
+			free_map(map);
 			return (NULL);
+		}
 		i++;
 	}
 	map->ships = malloc(sizeof(t_ships));
 	if (map->ships == NULL || errno)
+	{
+		free_battlefield(map->battlefield, BATTLEFIELD_SIZE);
+		free_map(map);
 		return (NULL);
+	}
 	return (map);
 }
 
@@ -33,7 +44,7 @@ t_map *initialize_empty_map(t_map *map)
 	{
 		j = 0;
 		while (j < map->width)
-			map->map[i][j++] = EMPTY;
+			map->battlefield[i][j++] = EMPTY;
 		i++;
 	}
 	map->ships->carrier = CARRIER_Q;

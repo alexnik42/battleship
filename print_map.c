@@ -27,7 +27,7 @@ void print_single_map(t_map *user_map)
 		printf("%d | ", i);
 		while (j < user_map->width)
 		{
-			print_color(user_map->map[i][j]);
+			print_color(user_map->battlefield[i][j]);
 			if (j != user_map->width - 1)
 				printf("  ");
 			j++;
@@ -52,7 +52,7 @@ void print_computer_map(t_map *computer_map)
 		printf("%d | ", i);
 		while (j < computer_map->width)
 		{
-			print_color(computer_map->map[i][j]);
+			print_color(computer_map->battlefield[i][j]);
 			if (j != computer_map->width - 1)
 				printf("  ");
 			j++;
@@ -78,7 +78,7 @@ void print_game_maps(t_map *user_map, t_map *game_map)
 		printf("%d | ", i);
 		while (j < user_map->width)
 		{
-			print_color(user_map->map[i][j]);
+			print_color(user_map->battlefield[i][j]);
 			if (j != user_map->width - 1)
 				printf("  ");
 			j++;
@@ -88,7 +88,7 @@ void print_game_maps(t_map *user_map, t_map *game_map)
 		printf("%d | ", i);
 		while (j < game_map->width)
 		{
-			print_color(game_map->map[i][j]);
+			print_color(game_map->battlefield[i][j]);
 			if (j != game_map->width - 1)
 				printf("  ");
 			j++;

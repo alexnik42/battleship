@@ -1,6 +1,6 @@
 #include "b_header.h"
 
-void handle_errors(void)
+void print_error(void)
 {
 	if (errno)
 		printf("Error: %s\n", strerror(errno));

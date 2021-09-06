@@ -13,11 +13,6 @@ void free_battlefield(char **battlefield, int size)
 	free(battlefield);
 }
 
-void free_ships(t_ships *ships)
-{
-	free(ships);
-}
-
 void free_map(t_map *map)
 {
 	free(map);
@@ -26,7 +21,6 @@ void free_map(t_map *map)
 void free_game_map(t_map *map)
 {
 	free_battlefield(map->battlefield, BATTLEFIELD_SIZE);
-	free_ships(map->ships);
 	free_map(map);
 }
 

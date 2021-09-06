@@ -24,13 +24,6 @@ t_map *allocate_memory(t_map *map)
 		}
 		i++;
 	}
-	map->ships = malloc(sizeof(t_ships));
-	if (map->ships == NULL || errno)
-	{
-		free_battlefield(map->battlefield, BATTLEFIELD_SIZE);
-		free_map(map);
-		return (NULL);
-	}
 	return (map);
 }
 
@@ -47,11 +40,17 @@ t_map *initialize_empty_map(t_map *map)
 			map->battlefield[i][j++] = EMPTY;
 		i++;
 	}
-	map->ships->carrier = CARRIER_Q;
-	map->ships->battleship = BATTLESHIP_Q;
-	map->ships->destroyer = DESTROYER_Q;
-	map->ships->submarine = SUBMARINE_Q;
-	map->ships->patrol_boat = PATROL_BOAT_Q;
-	map->total_ships_size = (CARRIER_Q * CARRIER_S + BATTLESHIP_Q * BATTLESHIP_S + DESTROYER_Q * DESTROYER_S + SUBMARINE_Q * SUBMARINE_S + PATROL_BOAT_Q * PATROL_BOAT_S);
+	map->ships_units_left = (CARRIER_SIZE + BATTLESHIP_SIZE + DESTROYER_SIZE + SUBMARINE_SIZE + PATROL_BOAT_SIZE);
+	return (map);
+}
+
+t_map *create_new_map(t_map *map)
+{
+	map = allocate_memory(map);
+	if (map == NULL)
+		return (NULL);
+	map = initialize_empty_map(map);
+	if (map == NULL)
+		return (NULL);
 	return (map);
 }

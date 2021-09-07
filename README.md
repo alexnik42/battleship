@@ -1,6 +1,6 @@
 # Battleship on C
 
-Battleship is a strategy type guessing game for two players. It is played on ruled grids (paper or board) on which each player's fleet of ships (including battleships) are marked. The locations of the fleets are concealed from the other player. Players alternate turns calling "shots" at the other player's ships, and the objective of the game is to destroy the opposing player's fleet. [[_Source - (Wiki)_](https://en.wikipedia.org/wiki/Battleship_(game))]
+Battleship is a strategy type guessing game for two players. It is played on ruled grids (paper or board) on which each player's fleet of ships (including battleships) are marked. The locations of the fleets are concealed from the other player. Players alternate turns calling "shots" at the other player's ships, and the objective of the game is to destroy the opposing player's fleet. <a href="https://en.wikipedia.org/wiki/Battleship_(game)" target="_blank">[_Source - Wiki_]</a>
 
 ## How it works
 
@@ -46,4 +46,4 @@ Battleship is a strategy type guessing game for two players. It is played on rul
 - End of the game:
   <br>
   <br>
-  <img src="./screenshots/game_end.png" height="440" width="500" alt="End of the game">
+  <img src="./screenshots/end_of_the_game.png" height="440" width="500" alt="End of the game">

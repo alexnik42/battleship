@@ -27,10 +27,11 @@ t_map *allocate_memory(t_map *map)
 	return (map);
 }
 
-t_map *initialize_empty_map(t_map *map)
+t_map *initialize_empty_map(t_map *map, t_ships *ships)
 {
 	int i;
 	int j;
+	int k;
 
 	i = 0;
 	while (i < map->height)
@@ -40,16 +41,19 @@ t_map *initialize_empty_map(t_map *map)
 			map->battlefield[i][j++] = EMPTY;
 		i++;
 	}
-	map->ships_units_left = (CARRIER_SIZE + BATTLESHIP_SIZE + DESTROYER_SIZE + SUBMARINE_SIZE + PATROL_BOAT_SIZE);
+	map->ships_units_left = 0;
+	k = 0;
+	while (k < NUMBER_OF_SHIPS)
+		map->ships_units_left += ships[k++].size;
 	return (map);
 }
 
-t_map *create_new_map(t_map *map)
+t_map *create_new_map(t_map *map, t_ships *ships)
 {
 	map = allocate_memory(map);
 	if (map == NULL)
 		return (NULL);
-	map = initialize_empty_map(map);
+	map = initialize_empty_map(map, ships);
 	if (map == NULL)
 		return (NULL);
 	return (map);

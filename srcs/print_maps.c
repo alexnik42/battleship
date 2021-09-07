@@ -12,7 +12,7 @@ void print_color(char c)
 		printf(MAG "%c" RESET, c);
 }
 
-void print_single_map(t_map *user_map)
+void print_user_map(t_map *user_map)
 {
 	int i;
 	int j;

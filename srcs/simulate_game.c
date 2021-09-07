@@ -1,6 +1,6 @@
 #include "b_header.h"
 
-int is_game_finished(t_map *user_map, t_map *computer_map)
+int game_finished(t_map *user_map, t_map *computer_map)
 {
 	return (user_map->ships_units_left == 0 || computer_map->ships_units_left == 0);
 }
@@ -40,7 +40,7 @@ int killed_ship(int row, int col, t_map *map)
 	return (1);
 }
 
-void mark_misses(int row, int col, t_map *user_map, t_map *computer_map)
+void mark_space(int row, int col, t_map *user_map, t_map *computer_map)
 {
 	if (row > 0 && col > 0)
 	{
@@ -108,17 +108,17 @@ void mark_misses(int row, int col, t_map *user_map, t_map *computer_map)
 	}
 }
 
-void mark_ships(int row, int col, t_map *user_map, t_map *computer_map)
+void mark_space_around_ships(int row, int col, t_map *user_map, t_map *computer_map)
 {
-	mark_misses(row, col, user_map, computer_map);
+	mark_space(row, col, user_map, computer_map);
 	while (row > 0 && user_map->battlefield[row - 1][col] == HIT)
-		mark_misses((row-- - 1), col, user_map, computer_map);
+		mark_space((row-- - 1), col, user_map, computer_map);
 	while (row < BATTLEFIELD_SIZE - 1 && user_map->battlefield[row + 1][col] == HIT)
-		mark_misses((row++ + 1), col, user_map, computer_map);
+		mark_space((row++ + 1), col, user_map, computer_map);
 	while (col > 0 && user_map->battlefield[row][col - 1] == HIT)
-		mark_misses(row, (col-- - 1), user_map, computer_map);
+		mark_space(row, (col-- - 1), user_map, computer_map);
 	while (col < BATTLEFIELD_SIZE - 1 && user_map->battlefield[row][col + 1] == HIT)
-		mark_misses(row, (col++ + 1), user_map, computer_map);
+		mark_space(row, (col++ + 1), user_map, computer_map);
 }
 
 void simulate_game(t_game *game)
@@ -126,7 +126,7 @@ void simulate_game(t_game *game)
 	int moves;
 	int row;
 	int col;
-	char pos[3];
+	char pos[BUFF_SIZE];
 	int is_computer_move;
 	int last_hit;
 	int last_hit_row;
@@ -136,16 +136,16 @@ void simulate_game(t_game *game)
 	last_hit = 0;
 	is_computer_move = 0;
 	srand(time(NULL));
-	printf("\e[1;1H\e[2J");
+	clear_screen();
 	print_game_maps(game->user_map, game->user_game_map);
-	while (!is_game_finished(game->user_map, game->computer_map))
+	while (!game_finished(game->user_map, game->computer_map))
 	{
 		if (moves % 2 == 0)
 		{
 			printf("\nChoose position to strike: ");
 			scanf("%s", pos);
 			printf("\n");
-			if (check_user_input(pos) == 0)
+			if (!check_user_input(pos))
 			{
 				printf("Incorrect input. Try again\n");
 				clear_stdin();
@@ -164,7 +164,7 @@ void simulate_game(t_game *game)
 				game->computer_map->battlefield[row][col] = HIT;
 				game->computer_map->ships_units_left--;
 				if (killed_ship(row, col, game->computer_map))
-					mark_ships(row, col, game->user_game_map, game->computer_map);
+					mark_space_around_ships(row, col, game->user_game_map, game->computer_map);
 			}
 			else
 			{
@@ -202,7 +202,7 @@ void simulate_game(t_game *game)
 				last_hit_col = col;
 				if (killed_ship(row, col, game->user_map))
 				{
-					mark_ships(row, col, game->user_map, game->computer_game_map);
+					mark_space_around_ships(row, col, game->user_map, game->computer_game_map);
 					last_hit = 0;
 				}
 			}
@@ -214,14 +214,14 @@ void simulate_game(t_game *game)
 			}
 			is_computer_move = 1;
 		}
-		printf("\e[1;1H\e[2J");
+		clear_screen();
 		print_game_maps(game->user_map, game->user_game_map);
 		if (is_computer_move)
 			printf(CYN "\nLast computer turn: %c%c\n" RESET, col + 97, row + 48);
 	}
-	printf("\e[1;1H\e[2J");
+	clear_screen();
 	print_game_maps(game->user_map, game->user_game_map);
 	printf("\n");
 	print_computer_map(game->computer_map);
-	game->user_map->ships_units_left == 0 ? printf("\nCOMPUTER HAS WON! \n") : printf("\nUSER HAS WON! \n");
+	game->user_map->ships_units_left == 0 ? printf("\nCOMPUTER HAS WON! \n\n") : printf("\nUSER HAS WON! \n\n");
 }

@@ -13,7 +13,7 @@ Battleship is a strategy type guessing game for two players. It is played on rul
    - Destroyer - size 2 <br />
      <br />
 
-2. User plays against computer. To start the game open `Terminal`, checkout to the source folder and type:
+2. User plays against computer. To start the game open `Terminal`, `git clone` repo, checkout to the source folder and type:
 
    ```sh
    $ ./battleship

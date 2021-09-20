@@ -7,9 +7,9 @@ int get_shooting_direction(int row, int col, t_map *computer_game_map)
 	while (col > 0 && computer_game_map->battlefield[row][col - 1] == HIT)
 		col--;
 
-	if (computer_game_map->battlefield[row + 1][col] == HIT)
+	if (row + 1 < BATTLEFIELD_SIZE && computer_game_map->battlefield[row + 1][col] == HIT)
 		return (VERTICAL);
-	else if (computer_game_map->battlefield[row][col + 1] == HIT)
+	else if (col + 1 < BATTLEFIELD_SIZE && computer_game_map->battlefield[row][col + 1] == HIT)
 		return (HORIZONTAL);
 	else
 		return (NO_DIRECTION);

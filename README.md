@@ -19,7 +19,7 @@ Battleship is a strategy type guessing game for two players. It is played on rul
    $ ./battleship
    ```
 
-3. Use `MakeFile` to make changes to the sources files and compile a new program. To compile a new program checkout the to source folder and type:
+3. Use `MakeFile` to make changes to the sources files and compile a new program. To compile a new program checkout to the source folder and type:
 
    ```sh
    $ make
